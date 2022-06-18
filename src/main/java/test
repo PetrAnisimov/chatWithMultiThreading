@@ -1,0 +1,21 @@
+  System.out.println("Введите имя:");
+        String userName = scanner.nextLine();
+        String text;
+        try (Connection connection = new Connection(new Socket(ip, port))) {
+            new Thread(new Read(connection), userName).start();
+            while (true) {
+                System.out.println("/");
+                text = scanner.nextLine();
+                connection.sendMessage(Message.getMessage(userName, text));
+            }
+        }catch (SocketException e) {
+            e.printStackTrace();
+        }
+        catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
